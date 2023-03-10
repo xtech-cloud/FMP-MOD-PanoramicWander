@@ -1,0 +1,16 @@
+org_name: XTC
+module_name: PanoramicWander
+generate:
+  active: true
+  database_driver: none
+  debug: false
+  unity_solution: true
+publish:
+  active: true
+  environment: product
+  repository: grpc://localhost:18000
+deploy:
+  active: true
+  environment: product
+  repository: grpc://localhost:18000
+  agent_port: 28000

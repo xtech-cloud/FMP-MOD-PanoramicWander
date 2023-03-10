@@ -1,0 +1,29 @@
+
+syntax = "proto3";
+import "shared.proto";
+import "google/api/annotations.proto";
+
+option csharp_namespace = "XTC.FMP.MOD.PanoramicWander.LIB.Proto";
+package xtc.fmp.panoramicwander;
+
+// 健康
+service Healthy {
+    // 回显
+    rpc Echo(HealthyEchoRequest) returns (HealthyEchoResponse) {
+        option (google.api.http) = {
+            post: "/v1/xtc/panoramicwander/healthy/echo",
+            body: "*",
+        };
+    }
+}
+
+// 回显的请求
+message HealthyEchoRequest {
+    string msg = 1;
+}
+
+// 回显的回复
+message HealthyEchoResponse {
+    Status status = 1;
+    string msg = 2;
+}

@@ -1,0 +1,19 @@
+
+/_dist_/
+/_build_/
+/PanoramicWander/Assets/TextMesh Pro/
+/PanoramicWander/Assets/TextMesh Pro.meta
+/PanoramicWander/Assets/Plugins/
+/PanoramicWander/Assets/Plugins.meta
+/PanoramicWander/Assets/3rd/
+/PanoramicWander/Assets/3rd.meta
+/PanoramicWander/Library/
+/PanoramicWander/obj/
+/PanoramicWander/Logs/
+/PanoramicWander/Temp/
+/PanoramicWander/UserSettings/
+/PanoramicWander/*.sln
+/PanoramicWander/*.csproj
+/PanoramicWander/.vsconfig
+/PanoramicWander/.vs/
+/.UNITY_HOME.env
