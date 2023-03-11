@@ -1,0 +1,83 @@
+{
+    "sceneS": [
+        {
+            "name": "夫子庙",
+            "image": "720images/夫子庙.jpg",
+            "rotation": 0,
+            "frontMenuAngle": -60,
+            "hotspotS":[
+                {
+                    "link": "九寨沟"
+                },
+                {
+                    "link": "乌鲁木齐"
+                },
+                {
+                    "link": "长白山"
+                },
+                {
+                    "link": "长城"
+                }
+            ]
+        },
+        {
+            "name": "九寨沟",
+            "image": "720images/九寨沟.jpg",
+            "rotation": 0,
+            "frontMenuAngle": 60,
+            "hotspotS":[
+                {
+                    "link": "乌鲁木齐"
+                },
+                {
+                    "link": "长白山"
+                },
+                {
+                    "link": "长城"
+                }
+            ]
+        },
+        {
+            "name": "乌鲁木齐",
+            "image": "720images/乌鲁木齐.jpg",
+            "rotation": 0,
+            "frontMenuAngle": -45,
+            "hotspotS":[
+                {
+                    "link": "夫子庙"
+                },
+                {
+                    "link": "长白山"
+                }
+            ]
+        },
+        {
+            "name": "长白山",
+            "image": "720images/长白山.jpg",
+            "rotation": 0,
+            "frontMenuAngle": 60,
+            "hotspotS":[
+                {
+                    "link": "夫子庙"
+                },
+                {
+                    "link": "长城"
+                }
+            ]
+        },
+        {
+            "name": "长城",
+            "image": "720images/长城.jpg",
+            "rotation": 0,
+            "frontMenuAngle": 45,
+            "hotspotS":[
+                {
+                    "link": "夫子庙"
+                }
+            ]
+        }
+    ],
+    "loader": {
+        "backgroundImage":"splash.jpg"
+    }
+}

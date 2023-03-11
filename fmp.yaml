@@ -1,16 +1,16 @@
 org_name: XTC
 module_name: PanoramicWander
 generate:
-  active: true
+  active: false
   database_driver: none
   debug: false
   unity_solution: true
 publish:
   active: true
   environment: product
-  repository: grpc://localhost:18000
+  repository: grpcs://api.xtech.cloud:29000
 deploy:
-  active: true
+  active: false
   environment: product
   repository: grpc://localhost:18000
   agent_port: 28000

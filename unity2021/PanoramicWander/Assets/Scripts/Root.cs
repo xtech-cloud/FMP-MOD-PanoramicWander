@@ -9,6 +9,11 @@ using UnityEngine;
 /// </remarks>
 public class Root : RootBase
 {
+    public Transform mainCamera;
+
+    private float rotationX_;
+    private float rotationY_;
+
     private void Awake()
     {
         doAwake();
@@ -55,6 +60,13 @@ public class Root : RootBase
         {
             entry_.__DebugDelete("test");
         }
+    }
+
+    private void Update()
+    {
+        rotationX_ += Input.GetAxis("Mouse X");
+        rotationY_ += Input.GetAxis("Mouse Y");
+        mainCamera.rotation = Quaternion.Euler(-rotationY_, rotationX_, 0);
     }
 }
 

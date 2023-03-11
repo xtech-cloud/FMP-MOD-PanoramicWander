@@ -16,9 +16,24 @@
     <GRPC address="https://localhost:19000"/>
     <!-- 样式列表
       name: 名称
+      Proloader.active: 预加载器是否启用
+      HeadMenu.visible: 头部菜单可见性
+      HeadMenu.offset: 头部菜单在Y轴上和摄像机的偏移
+      FootMenu.visible: 脚部菜单可见性
+      FootMenu.offset: 脚部菜单在Y轴上和摄像机的偏移
+      FrontMenu.width: 前部菜单的宽度
+      FrontMenu.expand: 前部菜单的完全展开时的角度差
+      FrontMenu.collapse: 前部菜单的完全折叠时的角度差
     -->
     <Styles>
         <Style name="default">
+        <Proloader active="true"/>
+        <HeadMenu visible="false" offset="0.2" scale="0.001">
+        </HeadMenu>
+        <FootMenu visible="false" offset="1.55" scale="0.001">
+        </FootMenu>
+        <FrontMenu visible="true" offset="1" scale="0.001" width="300" expand="10" collapse="45">
+        </FrontMenu>
         </Style>
     </Styles>
     <!-- 预创建的实例列表
@@ -44,8 +59,8 @@
             <Subject message="/XTC/PanoramicWander/Open">
                 <Parameters>
                     <Parameter key="uid" value="default" type="string"/>
-                    <Parameter key="source" value="" type="string"/>
-                    <Parameter key="uri" value="" type="string"/>
+                    <Parameter key="source" value="assloud://" type="string"/>
+                    <Parameter key="uri" value="XTC_PanoramicWander/_resources/test.pw#" type="string"/>
                     <Parameter key="delay" value="0" type="float"/>
                 </Parameters>
             </Subject>
