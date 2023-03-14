@@ -62,11 +62,12 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
         /// </remarks>
         public void HandleCreated()
         {
-            Material rendererMaterial = rootAttachments.transform.Find("RendererMaterial").GetComponent<MeshRenderer>().material;
+            Material panoramicMaterial = rootAttachments.transform.Find("PanoramicMaterial").GetComponent<MeshRenderer>().material;
+            Material clipPanoramicMaterial = rootAttachments.transform.Find("ClipPanoramicMaterial").GetComponent<MeshRenderer>().material;
             worldReference_.tOutRenderer = rootWorld.transform.Find("OutRenderer");
             worldReference_.tInRenderer = rootWorld.transform.Find("InRenderer");
-            worldReference_.tOutRenderer.GetComponent<MeshRenderer>().material = GameObject.Instantiate(rendererMaterial);
-            worldReference_.tInRenderer.GetComponent<MeshRenderer>().material = GameObject.Instantiate(rendererMaterial);
+            worldReference_.tOutRenderer.GetComponent<MeshRenderer>().material = GameObject.Instantiate(panoramicMaterial);
+            worldReference_.tInRenderer.GetComponent<MeshRenderer>().material = GameObject.Instantiate(clipPanoramicMaterial);
 
             hudReference_.objHeadMenu = rootWorld.transform.Find("HeadMenu").gameObject;
             hudReference_.objFootMenu = rootWorld.transform.Find("FootMenu").gameObject;
@@ -227,23 +228,39 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
                 });
             }
 
-            // 将外球设置为待切换的场景图
-            worldReference_.tOutRenderer.GetComponent<MeshRenderer>().material.mainTexture = sceneImageS_[targetScene.image];
-            worldReference_.tOutRenderer.localRotation = Quaternion.Euler(0, targetScene.rotation, 0);
-            yield return new WaitForEndOfFrame();
+            // 执行的切换动画
+            yield return doClipEffect(targetScene);
 
-            // TODO 执行内球的消融动画
-            yield return new WaitForSeconds(1);
-
-
-            yield return new WaitForSeconds(1);
-            // 将外球设置为待切换的场景图
-            worldReference_.tInRenderer.GetComponent<MeshRenderer>().material.mainTexture = sceneImageS_[targetScene.image];
-            worldReference_.tInRenderer.localRotation = Quaternion.Euler(0, targetScene.rotation, 0);
             // 恢复前向菜单
             hudReference_.objFrontMenu.SetActive(style_.frontMenu.visible);
 
             coroutineSwitchScene_ = null;
+        }
+
+        IEnumerator doClipEffect(DummyModel.ArchiveMetaSchema.Scene _targetScene)
+        {
+            // 将外球设置为目标场景图
+            worldReference_.tOutRenderer.GetComponent<MeshRenderer>().material.mainTexture = sceneImageS_[_targetScene.image];
+            worldReference_.tOutRenderer.localRotation = Quaternion.Euler(0, _targetScene.rotation, 0);
+            yield return new WaitForEndOfFrame();
+
+            // 执行内球的切换动画，从有到无
+            var inRendererMaterail = worldReference_.tInRenderer.GetComponent<MeshRenderer>().material;
+            float timer = 0;
+            float posTop = worldReference_.tInRenderer.position.y + 110;
+            float posBottom = worldReference_.tInRenderer.position.y - 110;
+            while (timer < style_.switchEffect.duration)
+            {
+                float value = Mathf.Lerp(posTop, posBottom, timer / style_.switchEffect.duration);
+                inRendererMaterail.SetFloat("_Clip", value);
+
+                yield return new WaitForEndOfFrame();
+                timer += Time.deltaTime;
+            }
+            // 结束后将内球设置为目标场景图，并完全显示遮盖外球
+            worldReference_.tInRenderer.GetComponent<MeshRenderer>().material.mainTexture = sceneImageS_[_targetScene.image];
+            worldReference_.tInRenderer.localRotation = Quaternion.Euler(0, _targetScene.rotation, 0);
+            inRendererMaterail.SetFloat("_Clip", posTop);
         }
     }
 }

@@ -44,6 +44,14 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
             public int collapse { get; set; } = 30;
         }
 
+        public class SwitchEffect
+        {
+            [XmlAttribute("active")]
+            public string active { get; set; } = "Clip";
+            [XmlAttribute("duration")]
+            public float duration { get; set; } = 1.5f;
+        }
+
         public class Style
         {
             [XmlAttribute("name")]
@@ -54,6 +62,8 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
             public FootMenu footMenu { get; set; } = new FootMenu();
             [XmlElement("FrontMenu")]
             public FrontMenu frontMenu { get; set; } = new FrontMenu();
+            [XmlElement("SwitchEffect")]
+            public SwitchEffect switchEffect { get; set; } = new SwitchEffect();
         }
 
 
