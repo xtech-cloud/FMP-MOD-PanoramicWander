@@ -44,6 +44,7 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
         private ArchiveReaderProxy archiveReader_ = null;
         private DummyModel.ArchiveMetaSchema archiveMetaSchema_ = null;
         private Dictionary<string, Texture2D> sceneImageS_ = new Dictionary<string, Texture2D>();
+        private List<string> activatedSceneS_ = new List<string>();
         private List<GameObject> entryS_ = new List<GameObject>();
         private Coroutine coroutineSwitchScene_ = null;
 
@@ -205,6 +206,8 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
             }
 
             var targetScene = sceneS[0];
+            if (!activatedSceneS_.Contains(_name))
+                activatedSceneS_.Add(_name);
 
             // 关闭前向菜单
             hudReference_.objFrontMenu.SetActive(false);
@@ -216,11 +219,17 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
                 GameObject.Destroy(objEntry);
             }
             entryS_.Clear();
+            Color normalColor = Color.white;
+            ColorUtility.TryParseHtmlString(style_.hotspot.linkNormalColor, out normalColor);
+            Color activatedColor = Color.white;
+            ColorUtility.TryParseHtmlString(style_.hotspot.linkActivatedColor, out activatedColor);
             foreach (var hotspot in targetScene.hotspotS)
             {
                 GameObject clone = GameObject.Instantiate(hudReference_.tEntry.gameObject, hudReference_.tEntry.parent);
                 entryS_.Add(clone);
-                clone.transform.Find("text").GetComponent<Text>().text = hotspot.link;
+                var text = clone.transform.Find("text").GetComponent<Text>();
+                text.text = hotspot.link;
+                text.color = activatedSceneS_.Contains(hotspot.link) ? activatedColor : normalColor;
                 clone.gameObject.SetActive(true);
                 clone.GetComponent<Button>().onClick.AddListener(() =>
                 {

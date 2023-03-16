@@ -26,6 +26,8 @@
       FrontMenu.collapse: 前部菜单的完全折叠时的角度差
       SwitchEffect.active: 激活的切换效果，可选值为（Clip）
       SwitchEffect.duration: 切换效果的持续时间
+      Hotspot.linkNormalColor: 热点未被激活的链接文本显示颜色
+      Hotspot.linkActivatedColor: 热点被激活过的链接文本显示颜色
     -->
   <Styles>
     <Style name="default">
@@ -34,6 +36,7 @@
       <FootMenu visible="false" offset="1.55" scale="0.001"/>
       <FrontMenu visible="true" offset="1" scale="0.001" width="300" expand="10" collapse="45"/>
       <SwitchEffect active="Clip" duration="1.5"/>
+      <Hotspot linkNormalColor="#B3DAFFFF" linkActivatedColor="#99FFBEFF"/>
     </Style>
   </Styles>
   <!-- 预创建的实例列表

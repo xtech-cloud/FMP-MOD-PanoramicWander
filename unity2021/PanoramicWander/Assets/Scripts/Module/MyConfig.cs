@@ -52,6 +52,15 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
             public float duration { get; set; } = 1.5f;
         }
 
+        public class Hotspot
+        {
+            [XmlAttribute("linkNormalColor")]
+            public string linkNormalColor { get; set; } = "#B3DAFFFF";
+            [XmlAttribute("linkActivatedColor")]
+            public string linkActivatedColor { get; set; } = "#99FFBEFF";
+
+        }
+
         public class Style
         {
             [XmlAttribute("name")]
@@ -64,6 +73,8 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
             public FrontMenu frontMenu { get; set; } = new FrontMenu();
             [XmlElement("SwitchEffect")]
             public SwitchEffect switchEffect { get; set; } = new SwitchEffect();
+            [XmlElement("Hotspot")]
+            public Hotspot hotspot { get; set; } = new Hotspot();
         }
 
 
