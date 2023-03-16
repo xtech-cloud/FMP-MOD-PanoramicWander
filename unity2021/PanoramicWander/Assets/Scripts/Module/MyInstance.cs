@@ -22,9 +22,17 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
     /// </summary>
     public class MyInstance : MyInstanceBase
     {
+        public class UiReference
+        {
+            public Transform tDebugPanel;
+            public Text textDebugRendererRotationY;
+        }
+
         public class WorldReference
         {
+            public Transform tOutRendererAdjust;
             public Transform tOutRenderer;
+            public Transform tInRendererAdjust;
             public Transform tInRenderer;
         }
 
@@ -35,8 +43,10 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
             public GameObject objFrontMenu;
             public Transform tGoniometer;
             public Transform tEntry;
+            public Transform tDebug;
         }
 
+        private UiReference uiReference_ = new UiReference();
         private WorldReference worldReference_ = new WorldReference();
         private HudReference hudReference_ = new HudReference();
         private bool isOpened = false;
@@ -65,11 +75,18 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
         {
             Material panoramicMaterial = rootAttachments.transform.Find("PanoramicMaterial").GetComponent<MeshRenderer>().material;
             Material clipPanoramicMaterial = rootAttachments.transform.Find("ClipPanoramicMaterial").GetComponent<MeshRenderer>().material;
-            worldReference_.tOutRenderer = rootWorld.transform.Find("OutRenderer");
-            worldReference_.tInRenderer = rootWorld.transform.Find("InRenderer");
+
+            uiReference_.tDebugPanel = rootUI.transform.Find("DebugPanel");
+            uiReference_.textDebugRendererRotationY = rootUI.transform.Find("DebugPanel/RendererRotationY/textValue").GetComponent<Text>();
+
+            worldReference_.tOutRendererAdjust = rootWorld.transform.Find("OutRendererAdjust");
+            worldReference_.tOutRenderer = rootWorld.transform.Find("OutRendererAdjust/OutRenderer");
+            worldReference_.tInRendererAdjust = rootWorld.transform.Find("InRendererAdjust");
+            worldReference_.tInRenderer = rootWorld.transform.Find("InRendererAdjust/InRenderer");
             worldReference_.tOutRenderer.GetComponent<MeshRenderer>().material = GameObject.Instantiate(panoramicMaterial);
             worldReference_.tInRenderer.GetComponent<MeshRenderer>().material = GameObject.Instantiate(clipPanoramicMaterial);
 
+            hudReference_.tDebug = rootWorld.transform.Find("Debug");
             hudReference_.objHeadMenu = rootWorld.transform.Find("HeadMenu").gameObject;
             hudReference_.objFootMenu = rootWorld.transform.Find("FootMenu").gameObject;
             hudReference_.objFrontMenu = rootWorld.transform.Find("FrontMenu").gameObject;
@@ -100,6 +117,9 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
             hudReference_.objHeadMenu.SetActive(style_.headMenu.visible);
             hudReference_.objFootMenu.SetActive(style_.footMenu.visible);
             hudReference_.objFrontMenu.SetActive(style_.frontMenu.visible);
+
+            uiReference_.tDebugPanel.gameObject.SetActive(style_.debug.active);
+            hudReference_.tDebug.gameObject.SetActive(style_.debug.active);
         }
 
         /// <summary>
@@ -158,6 +178,22 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
                     var sizeDelta = rtFrontPanel.sizeDelta;
                     sizeDelta.x = width;
                     rtFrontPanel.sizeDelta = sizeDelta;
+                }
+
+                if (style_.debug.active)
+                {
+                    var eulerAngles = worldReference_.tInRendererAdjust.localRotation.eulerAngles;
+                    if (Input.GetKey(KeyCode.A))
+                    {
+                        eulerAngles.y += 0.5f;
+                        worldReference_.tInRendererAdjust.localRotation = Quaternion.Euler(eulerAngles);
+                    }
+                    if (Input.GetKey(KeyCode.D))
+                    {
+                        eulerAngles.y -= 0.5f;
+                        worldReference_.tInRendererAdjust.localRotation = Quaternion.Euler(eulerAngles);
+                    }
+                    uiReference_.textDebugRendererRotationY.text = ((int)eulerAngles.y).ToString();
                 }
             }
         }
@@ -250,7 +286,7 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
         {
             // 将外球设置为目标场景图
             worldReference_.tOutRenderer.GetComponent<MeshRenderer>().material.mainTexture = sceneImageS_[_targetScene.image];
-            worldReference_.tOutRenderer.localRotation = Quaternion.Euler(0, _targetScene.rotation, 0);
+            worldReference_.tOutRendererAdjust.localRotation = Quaternion.Euler(0, _targetScene.rotation, 0);
             yield return new WaitForEndOfFrame();
 
             // 执行内球的切换动画，从有到无
@@ -268,7 +304,7 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
             }
             // 结束后将内球设置为目标场景图，并完全显示遮盖外球
             worldReference_.tInRenderer.GetComponent<MeshRenderer>().material.mainTexture = sceneImageS_[_targetScene.image];
-            worldReference_.tInRenderer.localRotation = Quaternion.Euler(0, _targetScene.rotation, 0);
+            worldReference_.tInRendererAdjust.localRotation = Quaternion.Euler(0, _targetScene.rotation, 0);
             inRendererMaterail.SetFloat("_Clip", posTop);
         }
     }
