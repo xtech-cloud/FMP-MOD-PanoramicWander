@@ -84,6 +84,9 @@
     <Reference Include="UnityEngine.TextRenderingModule">
       <HintPath>{{UNITY_HOME}}\Editor\Data\Managed\UnityEngine\UnityEngine.TextRenderingModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>{{UNITY_HOME}}\Editor\Data\Managed\UnityEngine\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
     <Reference Include="oelArchive">
       <HintPath>{{WORK_DIR}}\PanoramicWander\Assets\3rd\oelArchive-1.1.0\oelArchive.dll</HintPath>
     </Reference>
