@@ -18,7 +18,7 @@
       name: 名称
       Proloader.active: 预加载器是否启用
       Debug.active: 是否开启调试
-      Debug.rendererRotationY: 按住A或D时，图片渲染球每一帧旋转的角度
+      Debug.rotationY: 按住A或D时，每一帧旋转的角度
       HeadMenu.visible: 头部菜单可见性
       HeadMenu.offset: 头部菜单在Y轴上和摄像机的偏移
       FootMenu.visible: 脚部菜单可见性
@@ -33,7 +33,7 @@
     -->
   <Styles>
     <Style name="default">
-      <Debug active="false" rendererRotationY="0.5"/>
+      <Debug active="false" rotationY="0.5"/>
       <Proloader active="true"/>
       <HeadMenu visible="false" offset="0.2" scale="0.001"/>
       <FootMenu visible="false" offset="1.55" scale="0.001"/>

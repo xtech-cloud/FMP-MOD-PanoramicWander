@@ -65,8 +65,8 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
         {
             [XmlAttribute("active")]
             public bool active { get; set; } = false;
-            [XmlAttribute("rendererRotationY")]
-            public float rendererRotationY { get; set; } = 0.5f;
+            [XmlAttribute("rotationY")]
+            public float rotationY { get; set; } = 0.5f;
         }
 
         public class Style

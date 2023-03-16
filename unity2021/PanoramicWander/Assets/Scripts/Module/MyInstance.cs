@@ -26,6 +26,7 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
         {
             public Transform tDebugPanel;
             public Text textDebugRendererRotationY;
+            public Text textDebugFrontMenuRotationY;
         }
 
         public class WorldReference
@@ -78,6 +79,7 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
 
             uiReference_.tDebugPanel = rootUI.transform.Find("DebugPanel");
             uiReference_.textDebugRendererRotationY = rootUI.transform.Find("DebugPanel/RendererRotationY/textValue").GetComponent<Text>();
+            uiReference_.textDebugFrontMenuRotationY = rootUI.transform.Find("DebugPanel/FrontMenuRotationY/textValue").GetComponent<Text>();
 
             worldReference_.tOutRendererAdjust = rootWorld.transform.Find("OutRendererAdjust");
             worldReference_.tOutRenderer = rootWorld.transform.Find("OutRendererAdjust/OutRenderer");
@@ -182,18 +184,34 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
 
                 if (style_.debug.active)
                 {
-                    var eulerAngles = worldReference_.tInRendererAdjust.localRotation.eulerAngles;
-                    if (Input.GetKey(KeyCode.A))
                     {
-                        eulerAngles.y += 0.5f;
-                        worldReference_.tInRendererAdjust.localRotation = Quaternion.Euler(eulerAngles);
+                        var eulerAngles = worldReference_.tInRendererAdjust.localRotation.eulerAngles;
+                        if (Input.GetKey(KeyCode.A))
+                        {
+                            eulerAngles.y += style_.debug.rotationY;
+                            worldReference_.tInRendererAdjust.localRotation = Quaternion.Euler(eulerAngles);
+                        }
+                        if (Input.GetKey(KeyCode.D))
+                        {
+                            eulerAngles.y -= style_.debug.rotationY;
+                            worldReference_.tInRendererAdjust.localRotation = Quaternion.Euler(eulerAngles);
+                        }
+                        uiReference_.textDebugRendererRotationY.text = ((int)eulerAngles.y).ToString();
                     }
-                    if (Input.GetKey(KeyCode.D))
                     {
-                        eulerAngles.y -= 0.5f;
-                        worldReference_.tInRendererAdjust.localRotation = Quaternion.Euler(eulerAngles);
+                        var eulerAngles = hudReference_.objFrontMenu.transform.localRotation.eulerAngles;
+                        if (Input.GetKey(KeyCode.Q))
+                        {
+                            eulerAngles.y += style_.debug.rotationY;
+                            hudReference_.objFrontMenu.transform.localRotation = Quaternion.Euler(eulerAngles);
+                        }
+                        if (Input.GetKey(KeyCode.E))
+                        {
+                            eulerAngles.y -= style_.debug.rotationY;
+                            hudReference_.objFrontMenu.transform.localRotation = Quaternion.Euler(eulerAngles);
+                        }
+                        uiReference_.textDebugFrontMenuRotationY.text = ((int)eulerAngles.y).ToString();
                     }
-                    uiReference_.textDebugRendererRotationY.text = ((int)eulerAngles.y).ToString();
                 }
             }
         }
