@@ -122,6 +122,11 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
 
             uiReference_.tDebugPanel.gameObject.SetActive(style_.debug.active);
             hudReference_.tDebug.gameObject.SetActive(style_.debug.active);
+
+            if (style_.mouseInputMock.active)
+            {
+                new GameObject(string.Format("{0}_{1}#MouseInputMock", MyEntryBase.ModuleName, uid)).AddComponent<MouseInputMock>();
+            }
         }
 
         /// <summary>

@@ -40,6 +40,7 @@
       <FrontMenu visible="true" offset="1" scale="0.001" width="300" expand="10" collapse="45"/>
       <SwitchEffect active="Clip" duration="1.5"/>
       <Hotspot linkNormalColor="#B3DAFFFF" linkActivatedColor="#99FFBEFF"/>
+      <MouseInputMock active="false"/>
     </Style>
   </Styles>
   <!-- 预创建的实例列表

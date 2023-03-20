@@ -85,6 +85,15 @@ namespace XTC.FMP.MOD.PanoramicWander.LIB.Unity
             public SwitchEffect switchEffect { get; set; } = new SwitchEffect();
             [XmlElement("Hotspot")]
             public Hotspot hotspot { get; set; } = new Hotspot();
+            [XmlElement("MouseInputMock")]
+            public MouseInputMock mouseInputMock { get; set; } = new MouseInputMock();
+        }
+
+        public class MouseInputMock
+        {
+            [XmlAttribute("active")]
+            public bool active { get; set; } = false;
+
         }
 
 
